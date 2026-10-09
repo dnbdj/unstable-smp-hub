@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
 
     // Primary site + fallback. The wrapper follows whatever is live:
     // Base44 while published, Vercel otherwise. No rebuild needed.
-    private static final String SITE_URL = "https://watch-unstable-smp.base44.app/";
+    private static final String SITE_URL = "https://the-unstable-smp.base44.app/";
     private static final String FALLBACK_URL = "https://unstable-smp-hub.vercel.app/";
 
     private WebView web;
