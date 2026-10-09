@@ -15,10 +15,13 @@ import android.webkit.WebViewClient;
  *  YouTube app / browser. Phone back button walks WebView history. */
 public class MainActivity extends Activity {
 
-    // Your live site. Rebuild the APK only if this ever changes.
-    private static final String SITE_URL = "https://unstable-smp-hub.vercel.app/";
+    // Primary site + fallback. The wrapper follows whatever is live:
+    // Base44 while published, Vercel otherwise. No rebuild needed.
+    private static final String SITE_URL = "https://watch-unstable-smp.base44.app/";
+    private static final String FALLBACK_URL = "https://unstable-smp-hub.vercel.app/";
 
     private WebView web;
+    private boolean onFallback = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,20 @@ public class MainActivity extends Activity {
         s.setLoadWithOverviewMode(true);
         s.setUseWideViewPort(true);
         web.setWebViewClient(new WebViewClient() {
+            private void useFallback() {
+                if (!onFallback) {
+                    onFallback = true;
+                    web.loadUrl(FALLBACK_URL);
+                }
+            }
+            @Override
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                if (!onFallback && failingUrl != null && failingUrl.startsWith(SITE_URL)) useFallback();
+            }
+            @Override
+            public void onReceivedHttpError(WebView view, android.webkit.WebResourceRequest request, android.webkit.WebResourceResponse errorResponse) {
+                if (!onFallback && request.isForMainFrame()) useFallback();
+            }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 String host = request.getUrl().getHost();
