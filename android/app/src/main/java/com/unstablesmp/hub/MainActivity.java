@@ -15,9 +15,8 @@ import android.webkit.WebViewClient;
  *  YouTube app / browser. Phone back button walks WebView history. */
 public class MainActivity extends Activity {
 
-    // TODO: paste your Vercel URL here, then run Build-Apk.bat.
-    // Example: "https://unstable-smp-hub.vercel.app/"
-    private static final String SITE_URL = "https://YOUR-SITE.vercel.app/";
+    // Your live site. Rebuild the APK only if this ever changes.
+    private static final String SITE_URL = "https://unstable-smp-hub.vercel.app/";
 
     private WebView web;
 
