@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.ViewGroup;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 /** Minimal WebView shell: loads the hosted Hub (Vercel URL below).
  *  In-app episode taps stay inside; "Watch on YouTube" links open the
@@ -22,6 +25,7 @@ public class MainActivity extends Activity {
 
     private WebView web;
     private boolean onFallback = false;
+    private int base44Tries = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +38,28 @@ public class MainActivity extends Activity {
         s.setLoadWithOverviewMode(true);
         s.setUseWideViewPort(true);
         web.setWebViewClient(new WebViewClient() {
-            private void useFallback() {
-                if (!onFallback) {
+            private void retryOrFallback() {
+                if (onFallback) return;
+                base44Tries++;
+                if (base44Tries < 2) {
+                    // Transient blip: retry the live site once before giving up.
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        if (!onFallback) web.loadUrl(SITE_URL);
+                    }, 2000);
+                } else {
                     onFallback = true;
+                    Toast.makeText(MainActivity.this,
+                        "Base44 didn't load — showing backup copy", Toast.LENGTH_LONG).show();
                     web.loadUrl(FALLBACK_URL);
                 }
             }
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                if (!onFallback && failingUrl != null && failingUrl.startsWith(SITE_URL)) useFallback();
+                if (!onFallback && failingUrl != null && failingUrl.startsWith(SITE_URL)) retryOrFallback();
             }
             @Override
             public void onReceivedHttpError(WebView view, android.webkit.WebResourceRequest request, android.webkit.WebResourceResponse errorResponse) {
-                if (!onFallback && request.isForMainFrame()) useFallback();
+                if (!onFallback && request.isForMainFrame()) retryOrFallback();
             }
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
