@@ -1,0 +1,6 @@
+// Top-level build file for the WebView wrapper APK.
+// The app itself is the static site in unstable-smp-hub/ (live on Vercel);
+// this module only builds the native shell that displays it.
+plugins {
+    id("com.android.application") version "9.4.1" apply false
+}

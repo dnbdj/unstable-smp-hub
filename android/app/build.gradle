@@ -1,0 +1,27 @@
+plugins {
+    id("com.android.application")
+}
+
+android {
+    namespace = "com.unstablesmp.hub"
+    compileSdk = 36
+
+    defaultConfig {
+        // WebView wrapper: loads your Vercel URL (see MainActivity.SITE_URL).
+        applicationId = "com.unstablesmp.hub"
+        minSdk = 26
+        targetSdk = 36
+        versionCode = 1
+        versionName = "1.0"
+    }
+
+    buildTypes {
+        release {
+            // defaults: no minification
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}

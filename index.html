@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="screen-orientation" content="portrait">
+<meta name="theme-color" content="#0b0f1a">
+<meta name="description" content="Unstable SMP Hub - watch and track all 157 episodes across Season 1, 2 and 2+.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/official-logo.png">
+<title>Unstable SMP Hub</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<header class="topbar">
+  <button id="backBtn" class="back" hidden aria-label="Back">←</button>
+  <div class="brand"><img class="logo-img" src="icons/official-logo.png" alt="Official Unstable SMP logo"><div><strong>Unstable SMP Hub</strong><small id="countsLine">157 episodes</small></div></div>
+  <div id="authArea" class="auth"><button id="guestBadge" class="guest" title="Guest mode">Guest</button></div>
+</header>
+
+<main>
+  <section id="page-home" class="page active">
+    <div class="hero">
+      <img class="wordmark" src="icons/official-wordmark.png" alt="Unstable SMP official wordmark">
+      <h1>Track your Unstable SMP journey</h1>
+      <p>Pick a creator. Watch episodes. Progress saves to your account.</p>
+      <div class="overall"><div class="bar"><div id="overallBar" class="fill"></div></div><span id="overallLabel">0% watched</span></div>
+    </div>
+    <div id="creatorGrid" class="creator-grid"></div>
+    <div class="auth-card">
+      <div><strong>Sync across devices</strong><p>Sign in with Google to keep a separate watched list per account on this device. Add a backend (Firebase/Supabase) for true cross-device sync — see README.</p></div>
+      <div id="gisButton"></div>
+    </div>
+  </section>
+
+  <section id="page-creator" class="page">
+    <div id="creatorHead" class="creator-head"></div>
+    <div class="filters">
+      <input id="csearch" type="search" placeholder="Search episodes…" autocomplete="off">
+    </div>
+    <div id="browseList" class="ep-list"></div>
+  </section>
+
+  <section id="page-watch" class="page">
+    <div id="playerWrap" class="player-wrap"><p class="empty">Select an episode to start watching.</p></div>
+    <div class="watch-controls">
+      <button id="prevBtn">← Prev</button>
+      <button id="toggleWatched">Mark watched</button>
+      <button id="nextBtn">Next →</button>
+    </div>
+    <div id="watchMeta" class="watch-meta"></div>
+    <h3>Up next</h3>
+    <div id="upNext" class="ep-list small"></div>
+  </section>
+</main>
+
+<footer><small>Unofficial fan hub. Videos © their creators on YouTube. Installable PWA — wrap with Capacitor for .apk/.ipa. <span id="appVer"></span></small></footer>
+
+<script src="config.js"></script>
+<script src="data/episodes.js"></script>
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+  // When an update takes over, reload once so fixes apply immediately.
+  navigator.serviceWorker.addEventListener("controllerchange", () => location.reload());
+} else if ("serviceWorker" in navigator) {
+  // file:// and other non-hosted contexts: drop any stale worker + caches.
+  navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregister()));
+  if (window.caches) caches.keys().then(ks => ks.forEach(k => caches.delete(k)));
+}
+</script>
+</body>
+</html>

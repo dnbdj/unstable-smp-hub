@@ -1,0 +1,14 @@
+# vercel
+.vercel
+
+# android wrapper build outputs (rebuild with android/Build-Apk.bat)
+android/.gradle/
+android/build/
+android/app/build/
+android/app/release/
+android/local.properties
+
+# packages
+*.apk
+*.aab
+node_modules/
