@@ -33,11 +33,12 @@ jobs:
 
       - name: Package IPA
         run: |
-          rm -rf "$RUNNER_TEMP/Payload" "$RUNNER_TEMP/browser-ios.ipa"
+          APP="$RUNNER_TEMP/Browser.xcarchive/Products/Applications/Unstable SMP Hub.app"
+          rm -rf "$RUNNER_TEMP/Payload" "$RUNNER_TEMP/unstable-smp-hub-ios.ipa"
           mkdir -p "$RUNNER_TEMP/Payload"
-          cp -R "$RUNNER_TEMP/Browser.xcarchive/Products/Applications/Browser.app" "$RUNNER_TEMP/Payload/"
-          cd "$RUNNER_TEMP" && zip -r browser-ios.ipa Payload
-          ls -la "$RUNNER_TEMP/browser-ios.ipa"
+          cp -R "$APP" "$RUNNER_TEMP/Payload/"
+          cd "$RUNNER_TEMP" && zip -r unstable-smp-hub-ios.ipa Payload
+          ls -la "$RUNNER_TEMP/unstable-smp-hub-ios.ipa"
 
       - name: Attach to ios release
         env:
@@ -45,5 +46,6 @@ jobs:
         run: |
           gh release view ios --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 \
             || gh release create ios --repo "$GITHUB_REPOSITORY" \
-                 --title "iOS" --notes "Unsigned iOS build. Sideload with AltStore or Sideloadly using a free Apple ID - see ios/README.md."
-          gh release upload ios "$RUNNER_TEMP/browser-ios.ipa" --repo "$GITHUB_REPOSITORY" --clobber
+                 --title "Unstable SMP Hub (iOS)" --notes "Unsigned iOS build. Sideload with AltStore or Sideloadly using a free Apple ID - see ios/README.md."
+          gh release delete-asset ios browser-ios.ipa --repo "$GITHUB_REPOSITORY" -y 2>/dev/null || true
+          gh release upload ios "$RUNNER_TEMP/unstable-smp-hub-ios.ipa" --repo "$GITHUB_REPOSITORY" --clobber
