@@ -16,17 +16,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Point unstablemp.vercel.app at production
+
+      - name: Resolve latest production deployment
+        id: resolve
         env:
           VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
         run: |
           set -euo pipefail
-          npx -y vercel@latest ls unstablemp --yes 2>/dev/null | head -20 || true
-          DEPLOY=$(npx -y vercel@latest inspect --yes 2>/dev/null | grep -o 'https://[a-z0-9-]*\.vercel\.app' | head -1 || true)
-          echo "deploy=$DEPLOY"
-          if [ -z "$DEPLOY" ]; then
-            DEPLOY=$(npx -y vercel@latest project inspect unstablemp --format json \
-              | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const p=JSON.parse(s);const t=(p.targets&&p.targets.production&&p.targets.production.alias&&p.targets.production.alias[0])||"";console.log(t.replace("https://",""))})')
-          fi
-          echo "alias-target=$DEPLOY"
-          npx -y vercel@latest alias set "$DEPLOY" unstablemp.vercel.app --yes
+          URL=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v6/deployments?projectId=prj_iuTHhnXQOMkKuNR6iXJiyLDH5VgO&target=production&limit=1" \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log(j.deployments[0].url)})')
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "production deployment: $URL"
+
+      - name: Assign unstablemp.vercel.app
+        env:
+          VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
+        run: npx -y vercel@latest alias set "${{ steps.resolve.outputs.url }}" unstablemp.vercel.app
