@@ -17,7 +17,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.unstablesmp.hub
-        PRODUCT_NAME: Browser
+        PRODUCT_NAME: Unstable SMP Hub
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
         SWIFT_VERSION: "5.0"
