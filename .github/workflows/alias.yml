@@ -1,0 +1,32 @@
+name: Alias short domain
+
+# Points unstablemp.vercel.app at the current production deployment.
+# Run manually: gh workflow run alias.yml
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  alias:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Point unstablemp.vercel.app at production
+        env:
+          VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
+        run: |
+          set -euo pipefail
+          npx -y vercel@latest ls unstablemp --yes 2>/dev/null | head -20 || true
+          DEPLOY=$(npx -y vercel@latest inspect --yes 2>/dev/null | grep -o 'https://[a-z0-9-]*\.vercel\.app' | head -1 || true)
+          echo "deploy=$DEPLOY"
+          if [ -z "$DEPLOY" ]; then
+            DEPLOY=$(npx -y vercel@latest project inspect unstablemp --format json \
+              | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const p=JSON.parse(s);const t=(p.targets&&p.targets.production&&p.targets.production.alias&&p.targets.production.alias[0])||"";console.log(t.replace("https://",""))})')
+          fi
+          echo "alias-target=$DEPLOY"
+          npx -y vercel@latest alias set "$DEPLOY" unstablemp.vercel.app --yes
