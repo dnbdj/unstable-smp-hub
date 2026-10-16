@@ -1,5 +1,7 @@
-# vercel
-.vercel
+# vercel (project.json is committed on purpose: it binds deploys to the
+# project ID so they keep working across renames)
+.vercel/*
+!.vercel/project.json
 
 # android wrapper build outputs (rebuild with android/Build-Apk.bat)
 android/.gradle/

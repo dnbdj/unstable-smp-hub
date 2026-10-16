@@ -1,0 +1,38 @@
+name: Rename Vercel project
+
+# One-shot: renames the Vercel project to a shorter URL and commits
+# .vercel/project.json so future deploys bind by project ID, not name.
+# Run manually: gh workflow run rename.yml
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Rename and relink
+        env:
+          VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
+        run: |
+          set -euo pipefail
+          npx -y vercel@latest project rename unstable-smp-hub unstablemp
+          npx -y vercel@latest link --yes --project unstablemp
+          echo "--- project.json ---"
+          cat .vercel/project.json
+
+      - name: Commit project link
+        run: |
+          git config user.name  "github-actions"
+          git config user.email "actions@github.com"
+          git add -f .vercel/project.json
+          git commit -m "bind deploys to renamed vercel project (unstablemp)" || echo "nothing to commit"
+          git push origin HEAD:main
