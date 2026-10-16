@@ -1,0 +1,26 @@
+name: Deploy redirect
+
+# Pushes the vercel.json redirect live. Runs on demand and whenever the
+# redirect config itself changes.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "vercel.json"
+      - ".github/workflows/vercel.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Deploy to Vercel
+        run: npx -y vercel deploy --prod --yes --name=unstable-smp-hub
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
