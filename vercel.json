@@ -2,10 +2,24 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://site-3f58b39f79cf4d92aa4aa75aa3437a03.freebuff.page/",
+      "permanent": false
+    },
+    {
+      "source": "/:path*",
+      "destination": "https://site-3f58b39f79cf4d92aa4aa75aa3437a03.freebuff.page/",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
-      "source": "/sw.js",
-      "headers": [{ "key": "Cache-Control", "value": "no-store, must-revalidate" }]
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, must-revalidate" }
+      ]
     }
   ]
 }

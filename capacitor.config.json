@@ -1,8 +1,0 @@
-{
-  "appId": "com.unstablesmp.hub",
-  "appName": "Unstable SMP Hub",
-  "webDir": ".",
-  "backgroundColor": "#0b0f1a",
-  "android": { "allowMixedContent": true },
-  "ios": { "contentInset": "automatic" }
-}
