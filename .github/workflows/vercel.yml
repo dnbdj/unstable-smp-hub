@@ -21,6 +21,6 @@ jobs:
           node-version: 20
 
       - name: Deploy to Vercel
-        run: npx -y vercel deploy --prod --yes --name=unstable-smp-hub
+        run: npx -y vercel deploy --prod --yes
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
