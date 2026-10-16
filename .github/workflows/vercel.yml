@@ -1,26 +1,57 @@
-name: Deploy redirect
+name: Deploy site
 
-# Pushes the vercel.json redirect live. Runs on demand and whenever the
-# redirect config itself changes.
+# Deploys the download page, then re-points the short domains at the new
+# production deployment (Vercel aliases pin to one deployment, so this has
+# to run on every deploy or the short URLs would freeze on an old build).
 on:
   push:
     branches: [main]
     paths:
       - "vercel.json"
+      - "index.html"
+      - "icon.png"
       - ".github/workflows/vercel.yml"
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
       - name: Deploy to Vercel
-        run: npx -y vercel deploy --prod --yes
+        run: npx -y vercel@latest deploy --prod --yes
         env:
           VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
+
+      - name: Keep site public
+        run: npx -y vercel@latest project protection disable unstablemp --sso || true
+        env:
+          VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
+
+      - name: Resolve production deployment
+        id: resolve
+        env:
+          VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
+        run: |
+          set -euo pipefail
+          URL=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
+            "https://api.vercel.com/v6/deployments?projectId=prj_iuTHhnXQOMkKuNR6iXJiyLDH5VgO&target=production&limit=1" \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);console.log(j.deployments[0].url)})')
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          echo "production: $URL"
+
+      - name: Point short domains at production
+        env:
+          VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
+        run: |
+          set -uo pipefail
+          for d in unstable.smp.vercel.app unstablemp.vercel.app unstablesmp-hub.vercel.app; do
+            npx -y vercel@latest alias set "${{ steps.resolve.outputs.url }}" "$d" && echo "OK $d" || echo "FAILED $d"
+          done
