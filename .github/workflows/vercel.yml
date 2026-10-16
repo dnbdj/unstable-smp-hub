@@ -52,6 +52,9 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.OPENCODE_UNSTABLE_SMP_HUB }}
         run: |
           set -uo pipefail
-          for d in unstable.smp.vercel.app unstablemp.vercel.app unstablesmp-hub.vercel.app; do
+          # Note: dotted names like unstable.smp.vercel.app are impossible -
+          # Vercel reserves "*.smp.vercel.app" for whichever account owns the
+          # "smp" project. Flat names only.
+          for d in unstablemp.vercel.app unstablesmp-hub.vercel.app; do
             npx -y vercel@latest alias set "${{ steps.resolve.outputs.url }}" "$d" && echo "OK $d" || echo "FAILED $d"
           done
