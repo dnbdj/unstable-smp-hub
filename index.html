@@ -3,35 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b0f1a">
+<meta name="theme-color" content="#0a0814">
 <title>Unstable SMP Hub — Download</title>
 <meta name="description" content="Download the Unstable SMP Hub app for Android, iPhone and Windows.">
 <link rel="icon" type="image/png" href="/icon.png">
 <style>
-  :root{--bg:#0b0f1a;--card:#151d31;--line:#28324f;--txt:#eef2ff;--mut:#9aa6c7;--acc:#a855f7;--acc2:#38bdf8}
+  :root{
+    --bg:#05030a;
+    --card:rgba(20,14,30,0.85);
+    --line:rgba(168,85,247,0.35);
+    --txt:#f3e4ff;
+    --mut:#c3b1e6;
+    --acc:#a855f7;
+    --acc2:#38bdf8;
+    --acc3:#f97316;
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100dvh;display:flex;flex-direction:column;align-items:center}
-  .wrap{width:100%;max-width:560px;padding:0 18px 48px}
-  header{text-align:center;padding:36px 0 8px}
-  .mark{width:76px;height:76px;border-radius:20px;margin:0 auto 14px;display:block;box-shadow:0 10px 30px #0009}
-  h1{margin:0;font-size:26px;letter-spacing:-.02em}
+  html,body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100dvh;overflow-x:hidden}
+  body{
+    display:flex;flex-direction:column;align-items:center;
+    background:
+      radial-gradient(600px 500px at 50% -10%, rgba(168,85,247,0.18), transparent 60%),
+      radial-gradient(400px 300px at 120% 10%, rgba(56,189,248,0.10), transparent 45%),
+      radial-gradient(350px 250px at -20% 85%, rgba(249,115,22,0.08), transparent 45%),
+      var(--bg);
+    background-attachment:fixed;
+  }
+  .wrap{width:100%;max-width:560px;padding:0 18px 60px}
+  header{text-align:center;padding:34px 0 10px}
+  .mark{width:92px;height:92px;border-radius:26px;margin:0 auto 16px;display:block;
+    box-shadow:0 0 0 3px rgba(168,85,247,0.45),0 20px 50px #0009;
+    background:linear-gradient(135deg,#a855f7,#38bdf8,#f97316);filter:drop-shadow(0 6px 12px #000b)}
+  h1{margin:0;font-size:32px;letter-spacing:-0.03em;font-weight:900;text-shadow:0 4px 20px rgba(0,0,0,0.6)}
   .sub{color:var(--mut);margin:6px 0 0;font-size:15px}
-  .openlink{display:inline-block;margin-top:16px;padding:12px 20px;border-radius:12px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:700;text-decoration:none}
-  .cards{margin-top:26px;display:flex;flex-direction:column;gap:14px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+  .openlink{display:inline-block;margin-top:18px;padding:11px 20px;border-radius:12px;
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+    color:#fff;font-weight:700;font-size:14px;text-decoration:none;backdrop-filter:blur(6px)}
+  .openlink:hover{background:rgba(255,255,255,0.16)}
+  .cards{margin-top:26px;display:flex;flex-direction:column;gap:13px}
+  .card{
+    position:relative;
+    background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
+    border:1px solid var(--line);
+    border-radius:20px;padding:16px;overflow:hidden;
+    backdrop-filter:blur(10px)
+  }
+  .card::before{
+    content:"";position:absolute;inset:0 0 0 4px;
+    background:linear-gradient(180deg,var(--acc),var(--acc2),var(--acc3));
+    border-radius:18px;opacity:0;transition:opacity .25s ease;pointer-events:none;z-index:-1}
+  .card:hover::before{opacity:0.6}
   .row{display:flex;align-items:center;gap:14px}
-  .ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:26px;flex:none;background:#0f172a;border:1px solid var(--line)}
-  .name{font-weight:800;font-size:18px}
+  .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:28px;
+    flex:none;background:#121022;border:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,0.45)}
+  .name{font-weight:800;font-size:18px;letter-spacing:-0.01em}
   .meta{color:var(--mut);font-size:13px;margin-top:2px}
-  .btn{display:block;margin-top:14px;text-align:center;padding:15px 18px;border-radius:14px;font-weight:800;font-size:16px;text-decoration:none;color:#fff;background:#111827;border:1px solid var(--line);min-height:52px}
-  .btn.primary{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:transparent}
-  .note{color:var(--mut);font-size:13.5px;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .btn{display:block;margin-top:15px;text-align:center;padding:17px 18px;border-radius:16px;
+    font-weight:800;font-size:16px;text-decoration:none;color:#fff;
+    background:linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04));
+    border:1px solid var(--line);min-height:56px;backdrop-filter:blur(8px)}
+  .btn.primary{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:transparent;box-shadow:0 12px 30px rgba(168,85,247,0.35)}
+  .btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+  .note{color:var(--mut);font-size:13px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
   .note b{color:var(--txt)}
   details{margin-top:10px}
   summary{cursor:pointer;color:var(--acc2);font-size:14px;font-weight:600}
   ol{margin:10px 0 0;padding-left:20px;color:var(--mut);font-size:14px}
   ol li{margin-bottom:6px}
-  footer{color:var(--mut);font-size:12.5px;text-align:center;padding:26px 18px 40px;line-height:1.6}
+  footer{color:var(--mut);font-size:12.5px;text-align:center;padding:30px 18px 50px;line-height:1.6}
   a{color:var(--acc2)}
 </style>
 </head>
