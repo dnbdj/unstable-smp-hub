@@ -3,145 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0a0814">
-<title>Unstable SMP Hub — Download</title>
-<meta name="description" content="Download the Unstable SMP Hub app for Android, iPhone and Windows.">
-<link rel="icon" type="image/png" href="/icon.png">
-<style>
-  :root{
-    --bg:#05030a;
-    --card:rgba(20,14,30,0.85);
-    --line:rgba(168,85,247,0.35);
-    --txt:#f3e4ff;
-    --mut:#c3b1e6;
-    --acc:#a855f7;
-    --acc2:#38bdf8;
-    --acc3:#f97316;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100dvh;overflow-x:hidden}
-  body{
-    display:flex;flex-direction:column;align-items:center;
-    background:
-      radial-gradient(600px 500px at 50% -10%, rgba(168,85,247,0.18), transparent 60%),
-      radial-gradient(400px 300px at 120% 10%, rgba(56,189,248,0.10), transparent 45%),
-      radial-gradient(350px 250px at -20% 85%, rgba(249,115,22,0.08), transparent 45%),
-      var(--bg);
-    background-attachment:fixed;
-  }
-  .wrap{width:100%;max-width:560px;padding:0 18px 60px}
-  header{text-align:center;padding:34px 0 10px}
-  .mark{width:92px;height:92px;border-radius:26px;margin:0 auto 16px;display:block;
-    box-shadow:0 0 0 3px rgba(168,85,247,0.45),0 20px 50px #0009;
-    background:linear-gradient(135deg,#a855f7,#38bdf8,#f97316);filter:drop-shadow(0 6px 12px #000b)}
-  h1{margin:0;font-size:32px;letter-spacing:-0.03em;font-weight:900;text-shadow:0 4px 20px rgba(0,0,0,0.6)}
-  .sub{color:var(--mut);margin:6px 0 0;font-size:15px}
-  .openlink{display:inline-block;margin-top:18px;padding:11px 20px;border-radius:12px;
-    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
-    color:#fff;font-weight:700;font-size:14px;text-decoration:none;backdrop-filter:blur(6px)}
-  .openlink:hover{background:rgba(255,255,255,0.16)}
-  .cards{margin-top:26px;display:flex;flex-direction:column;gap:13px}
-  .card{
-    position:relative;
-    background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
-    border:1px solid var(--line);
-    border-radius:20px;padding:16px;overflow:hidden;
-    backdrop-filter:blur(10px)
-  }
-  .card::before{
-    content:"";position:absolute;inset:0 0 0 4px;
-    background:linear-gradient(180deg,var(--acc),var(--acc2),var(--acc3));
-    border-radius:18px;opacity:0;transition:opacity .25s ease;pointer-events:none;z-index:-1}
-  .card:hover::before{opacity:0.6}
-  .row{display:flex;align-items:center;gap:14px}
-  .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:28px;
-    flex:none;background:#121022;border:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,0.45)}
-  .name{font-weight:800;font-size:18px;letter-spacing:-0.01em}
-  .meta{color:var(--mut);font-size:13px;margin-top:2px}
-  .btn{display:block;margin-top:15px;text-align:center;padding:17px 18px;border-radius:16px;
-    font-weight:800;font-size:16px;text-decoration:none;color:#fff;
-    background:linear-gradient(180deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04));
-    border:1px solid var(--line);min-height:56px;backdrop-filter:blur(8px)}
-  .btn.primary{background:linear-gradient(135deg,var(--acc),var(--acc2));border-color:transparent;box-shadow:0 12px 30px rgba(168,85,247,0.35)}
-  .btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
-  .note{color:var(--mut);font-size:13px;margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}
-  .note b{color:var(--txt)}
-  details{margin-top:10px}
-  summary{cursor:pointer;color:var(--acc2);font-size:14px;font-weight:600}
-  ol{margin:10px 0 0;padding-left:20px;color:var(--mut);font-size:14px}
-  ol li{margin-bottom:6px}
-  footer{color:var(--mut);font-size:12.5px;text-align:center;padding:30px 18px 50px;line-height:1.6}
-  a{color:var(--acc2)}
-</style>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="screen-orientation" content="portrait">
+<meta name="theme-color" content="#0b0f1a">
+<meta name="description" content="Unstable SMP Hub - watch and track all 157 episodes across Season 1, 2 and 2+.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/official-logo.png">
+<title>Unstable SMP Hub</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <img class="mark" src="/icon.png" alt="Unstable SMP Hub logo">
-    <h1>Unstable SMP Hub</h1>
-    <p class="sub">Track all 157 episodes &amp; watch from one app.</p>
-    <a class="openlink" href="https://site-3f58b39f79cf4d92aa4aa75aa3437a03.freebuff.page/" target="_blank" rel="noopener">Open the Hub in browser &rarr;</a>
-  </header>
+<header class="topbar">
+  <button id="backBtn" class="back" hidden aria-label="Back">←</button>
+  <div class="brand"><img class="logo-img" src="icons/official-logo.png" alt="Unstable SMP logo"><div><strong>Unstable SMP Hub</strong><small id="countsLine">157 episodes</small></div></div>
+  <div class="auth"><span class="chip" title="Progress is saved in this browser">Local</span></div>
+</header>
 
-  <div class="cards">
-    <div class="card">
-      <div class="row">
-        <div class="ico">🤖</div>
-        <div>
-          <div class="name">Android</div>
-          <div class="meta">.apk &middot; 634 KB &middot; Android 8.0+</div>
-        </div>
-      </div>
-      <a class="btn primary" href="https://github.com/dnbdj/unstable-smp-hub/releases/download/simple/unstable-smp-hub.apk" download>Download for Android</a>
-      <div class="note">
-        <b>Installing:</b> tap the downloaded file, then allow <b>Install unknown apps</b> if your phone asks.
-        Already installed an older build? <b>Uninstall it first</b>, then install this one.
-      </div>
+<main>
+  <section id="page-home" class="page active">
+    <div class="hero">
+      <img class="wordmark" src="icons/official-wordmark.png" alt="Unstable SMP official wordmark">
+      <h1>Track your Unstable SMP journey</h1>
+      <p>Pick a creator. Watch episodes. Progress stays on this device.</p>
+      <div class="overall"><div class="bar"><div id="overallBar" class="fill"></div></div><span id="overallLabel">0% watched</span></div>
     </div>
+    <div id="creatorGrid" class="creator-grid"></div>
+  </section>
 
-    <div class="card">
-      <div class="row">
-        <div class="ico">🍎</div>
-        <div>
-          <div class="name">iPhone</div>
-          <div class="meta">.ipa &middot; 11 KB &middot; iOS 16+</div>
-        </div>
-      </div>
-      <a class="btn primary" href="https://github.com/dnbdj/unstable-smp-hub/releases/download/ios/unstable-smp-hub-ios.ipa" download>Download for iPhone</a>
-      <div class="note">
-        <b>iOS can&rsquo;t install unsigned apps directly</b> &mdash; Apple requires it, and only a signed app
-        installs on its own. This download works with a free Apple ID using one of these:
-        <details>
-          <summary>Show 2 easy ways to install</summary>
-          <ol>
-            <li><b>AltStore (wireless after setup):</b> install AltStore on a PC, connect your iPhone by USB once, install AltStore with your Apple ID. Then download the <code>.ipa</code> above on your phone and open it with AltStore.</li>
-            <li><b>Sideloadly (USB):</b> install Sideloadly on a PC, plug in your iPhone, drag the <code>.ipa</code> in, sign in with your Apple ID, and sideload.</li>
-          </ol>
-          Free Apple IDs work fine. They expire about every 7 days &mdash; AltStore re-signs automatically while on Wi-Fi.
-        </details>
-      </div>
+  <section id="page-creator" class="page">
+    <div id="creatorHead" class="creator-head"></div>
+    <div class="filters">
+      <input id="csearch" type="search" placeholder="Search episodes…" autocomplete="off">
     </div>
+    <div id="browseList" class="ep-list"></div>
+  </section>
 
-    <div class="card">
-      <div class="row">
-        <div class="ico">🪟</div>
-        <div>
-          <div class="name">Windows</div>
-          <div class="meta">.zip &middot; 44 MB &middot; Windows 10/11</div>
-        </div>
-      </div>
-      <a class="btn primary" href="https://github.com/dnbdj/unstable-smp-hub/releases/download/simple/unstable-smp-hub-windows.zip" download>Download for Windows</a>
-      <div class="note">
-        <b>Installing:</b> unzip the download, then double-click <b>Unstable SMP Hub.exe</b>.
-        Edge WebView2 (already on Windows 10/11) is required &mdash; if it&rsquo;s missing, Windows will offer to install it.
-      </div>
+  <section id="page-watch" class="page">
+    <div id="playerWrap" class="player-wrap"><p class="empty">Select an episode to start watching.</p></div>
+    <div class="watch-controls">
+      <button id="prevBtn">← Prev</button>
+      <button id="toggleWatched">Mark watched</button>
+      <button id="nextBtn">Next →</button>
     </div>
-  </div>
+    <div id="watchMeta" class="watch-meta"></div>
+    <h3>Up next</h3>
+    <div id="upNext" class="ep-list small"></div>
+  </section>
+</main>
 
-  <footer>
-    Unofficial fan project. Not affiliated with Mojang, Microsoft, Spoke, ParrotX2, Wemmbu or FlameFrags.<br>
-    All episodes &amp; artwork belong to their respective owners.
-  </footer>
-</div>
+<footer><small>Unofficial fan hub. Videos © their creators on YouTube. Watched progress is saved in this browser. <span id="appVer"></span></small></footer>
+
+<script src="data/episodes.js"></script>
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
+  navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).catch(()=>{});
+  navigator.serviceWorker.addEventListener("controllerchange", () => location.reload());
+}
+</script>
 </body>
 </html>
