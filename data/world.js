@@ -79,11 +79,6 @@
       id: "thelaw", kind: "faction", name: "The LAW", color: "#facc15",
       glyph: "⚖", tags: [],
       blurb: "Order at spawn, enforced by lawmen. The Farm War is what happens when a thousand of them come for you."
-    },
-    {
-      id: "district13", kind: "faction", name: "District 13", color: "#38bdf8", art: "art/district13.svg",
-      tags: [],
-      blurb: "Formed to oppose the Invisible Mafia, reformed against later threats. Its roster reads like a who's-who of the server."
     }
   ];
 
@@ -112,6 +107,11 @@
       id: "purgatory", kind: "place", name: "Purgatory", color: "#f43f5e", art: "art/places/purgatory.webp",
       tags: ["Under the bedrock"],
       blurb: "Terrain under the Nether bedrock where the server forces Adventure Mode, so nobody can place or break a single block."
+    },
+    {
+      id: "district13", kind: "place", name: "District 13", color: "#38bdf8", art: "art/places/district13.svg",
+      tags: ["Underground hideout"],
+      blurb: "An underground hideout built to oppose the Invisible Mafia, with iron doors and escape rooms — later reformed against whatever came next."
     }
   ];
 
