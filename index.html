@@ -33,6 +33,7 @@
         <button id="importBtn" class="tool" type="button" title="Load a previously backed-up JSON file">↑ Restore</button>
         <input id="importFile" type="file" accept="application/json,.json" hidden>
       </div>
+      <a class="world-cta" href="#/world"><span>Side characters, factions &amp; places</span><b>Open the world guide →</b></a>
     </div>
     <div id="creatorGrid" class="creator-grid"></div>
   </section>
@@ -56,11 +57,42 @@
     <h3>Up next</h3>
     <div id="upNext" class="ep-list small"></div>
   </section>
+
+  <section id="page-world" class="page">
+    <div class="world-hero">
+      <span class="wkicker">World guide</span>
+      <h1>Side characters, factions &amp; places</h1>
+      <p>Spoiler-light notes on everyone else in the story — and a place to keep the clips you care about.</p>
+    </div>
+    <div id="worldFilters" class="chips" role="tablist" aria-label="Filter the world guide">
+      <button class="wchip on" data-kind="all" role="tab" aria-selected="true">All</button>
+      <button class="wchip" data-kind="person" role="tab" aria-selected="false">Characters</button>
+      <button class="wchip" data-kind="faction" role="tab" aria-selected="false">Factions</button>
+      <button class="wchip" data-kind="place" role="tab" aria-selected="false">Places</button>
+      <button class="wchip" data-kind="clip" role="tab" aria-selected="false">Clips</button>
+    </div>
+    <form id="clipForm" class="clip-form" hidden>
+      <input id="clipUrl" type="text" inputmode="url" autocomplete="off" placeholder="Paste a YouTube link…" aria-label="YouTube link">
+      <button type="submit" class="clip-add">Import</button>
+      <small>Saved on this device. Play it here and it remembers where you stopped.</small>
+    </form>
+    <div id="worldGrid" class="world-grid"></div>
+    <p class="world-note">Summaries adapt the community wikis. Imported clips and watch positions live in this browser only.</p>
+  </section>
 </main>
+
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-backdrop" data-close="1"></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <button class="sheet-close" data-close="1" aria-label="Close">✕</button>
+    <div id="sheetBody"></div>
+  </div>
+</div>
 
 <footer><small>Unofficial fan hub. Videos © their creators on YouTube. Watched progress is saved in this browser. <span id="appVer"></span></small></footer>
 
 <script src="data/episodes.js"></script>
+<script src="data/world.js"></script>
 <script src="app.js"></script>
 <script>
 if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
