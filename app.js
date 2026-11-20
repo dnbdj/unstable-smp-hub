@@ -1,7 +1,7 @@
 /* Unstable SMP Hub — views, progress, player. No build step, no accounts, no backend. */
 (function () {
   "use strict";
-  const APP_VER = "v21";
+  const APP_VER = "v22";
   const HUB = window.HUB || {};
   const EPISODES = HUB.EPISODES || [];
   const CREATORS = HUB.CREATORS || [];
@@ -20,7 +20,7 @@
     write(map) { localStorage.setItem(this.key, JSON.stringify(map)); },
     isWatched(id) { return !!this.read()[id]; },
     toggle(id) { const m = this.read(); m[id] ? delete m[id] : (m[id] = 1); this.write(m); render(); },
-    set(id, v) { const m = this.read(); v ? (m[id] = 1) : delete m[id]; this.write(m); render(); }
+    set(id, v) { const = = this.read(); v ? (m[id] = 1) : delete m[id]; this.write(m); render(); }
   };
 
   /* ---- Progress backup: the map lives in this browser only, so let
