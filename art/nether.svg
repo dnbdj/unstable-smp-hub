@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-label="The Nether Kingdom: blackstone towers over a lava river">
+  <defs>
+    <linearGradient id="n" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a0810"/><stop offset=".55" stop-color="#47101a"/><stop offset="1" stop-color="#12060c"/>
+    </linearGradient>
+    <linearGradient id="lava" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffca57"/><stop offset=".5" stop-color="#ff7418"/><stop offset="1" stop-color="#8f1d05"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ff7a1a" stop-opacity=".8"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="300" fill="url(#n)"/>
+  <circle cx="240" cy="150" r="150" fill="url(#glow)" opacity=".5"/>
+  <g fill="#0a0409">
+    <rect x="0" y="150" width="150" height="150"/>
+    <rect x="330" y="150" width="150" height="150"/>
+    <path d="M30 150V70h26v-16h12v16h10v22h12V70h12v80z"/>
+    <path d="M112 150V96h24v-18h10v18h8v22h10v32z"/>
+    <path d="M356 150V64h28v-18h12v18h10v26h14V64h12v86z"/>
+    <path d="M438 150V104h20v-16h8v16h14v46z"/>
+    <path d="M0 44h480v10H0z"/>
+  </g>
+  <g fill="#7a1a22">
+    <rect x="0" y="150" width="150" height="150" opacity=".5"/>
+    <rect x="330" y="150" width="150" height="150" opacity=".5"/>
+  </g>
+  <path d="M186 150h108v150H186z" fill="#140a12"/>
+  <path d="M196 160h30v130h-30zM254 160h30v130h-30z" fill="#1d0d18"/>
+  <rect x="0" y="252" width="480" height="48" fill="url(#lava)" opacity=".9"/>
+  <g fill="#ffd27a">
+    <rect x="24" y="264" width="60" height="6" opacity=".8"/>
+    <rect x="150" y="276" width="90" height="5" opacity=".7"/>
+    <rect x="290" y="262" width="70" height="6" opacity=".8"/>
+    <rect x="392" y="278" width="64" height="5" opacity=".6"/>
+  </g>
+  <g fill="#ffb04a" opacity=".55">
+    <circle cx="210" cy="196" r="4"/><circle cx="272" cy="212" r="4"/><circle cx="240" cy="228" r="3"/>
+    <circle cx="66" cy="192" r="3"/><circle cx="412" cy="188" r="3"/>
+  </g>
+  <path d="M214 84h52v66h-52z" fill="#2a0a12"/>
+  <path d="M222 92h36v50h-36z" fill="#8f1d05" opacity=".8"/>
+  <path d="M232 100h16v34h-16z" fill="#ffb04a" opacity=".55"/>
+</svg>
