@@ -56,109 +56,58 @@ main{padding:0 14px 28px;flex:1;width:100%}
 /* Very narrow portrait phones: tighter tiles, stacked filters */
 @media(max-width:360px){.mc-wrap{height:48%}.filters{flex-direction:column}.ep img,.fallback-thumb{width:88px}}
 
-/* ---- Tablets and up (480px+). The shell stops being a narrow phone column
-   and the grids scale continuously: the shell is fluid with clamp() and the
-   episode grid auto-fills, so any width lands on a sensible column count. ---- */
-@media(min-width:480px){
-  body{max-width:clamp(660px,96vw,900px);border-inline:1px solid #1a2340}
-  main{padding:0 18px 32px}
-  .hero{text-align:center}
-  .hero h1{font-size:26px}
-  .wordmark{max-width:460px;margin-inline:auto}
-  .overall{max-width:520px;margin:10px auto}
-  .creator-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px auto;max-width:920px}
-  .creator strong{font-size:16px}
-  .ep-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px;align-items:stretch}
-  .ep-list>p{grid-column:1/-1;margin:0}
-  .ep{height:100%;min-width:0}
-  .player-wrap,#page-watch h3,.watch-controls,.watch-meta,#upNext{max-width:min(100%,clamp(680px,66vw,1300px));margin-inline:auto}
-  .player-wrap{margin-top:14px}
-}
-
-/* ---- Desktop: wider shell, roomier cards ---- */
-@media(min-width:1024px){
-  body{max-width:clamp(940px,94vw,1200px);border-inline:0}
-  main{padding:0 26px 44px}
-  .topbar{padding-inline:26px}
-  .filters{max-width:560px}
-  .hero h1{font-size:32px}
-  .hero p{font-size:15px}
-  .wordmark{max-width:520px}
-  .overall{max-width:640px}
-  .creator-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-  .creator strong{font-size:17px}
-  .creator .pct{font-size:14px}
-  .ep-list{gap:12px}
-  .ep .t strong{font-size:15px}
-  .watch-controls button{font-size:15px;padding:15px 10px}
-  footer{font-size:13px}
-}
-
-/* ---- Wide screens: compact cards so a ~300px column still fits a title
-   (the E-number badge repeats the meta line, so it goes at this size) ---- */
-@media(min-width:1400px){
-  body{max-width:clamp(1120px,92vw,1440px)}
-  .ep-list{gap:12px}
-  .ep{padding:6px;gap:8px}
-  .ep img,.fallback-thumb{width:84px;height:52px}
-  .ep .badge{display:none}
-  .ep .t strong{font-size:14px}
-  .ep .t small{font-size:12px}
-  .check{padding:8px 10px;min-height:40px;font-size:13px}
-}
-
 /* ---- Progress backup controls (home) + toast feedback ---- */
 .data-tools{display:flex;gap:8px;margin:10px 0 2px}
 .tool{flex:1;min-width:0;padding:10px 8px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mut);font-weight:700;font-size:13px;cursor:pointer;touch-action:manipulation}
 .tool:hover{color:var(--txt);border-color:#31406b}
 .tool:active{transform:scale(.98)}
-@media(min-width:480px){.data-tools{max-width:520px;margin:10px auto 2px}}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,14px);max-width:calc(100% - 32px);background:#1b2440;border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:11px 16px;font-size:13px;text-align:center;box-shadow:0 12px 34px #000a;opacity:0;transition:opacity .25s ease,transform .25s ease;z-index:40;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* ---- Ultrawide: home splits into a hero column beside the creator tiles so
-   a big monitor has no dead gutters. The fluid shell and the auto-filling
-   episode grid above keep adding columns as the page grows. ---- */
-@media(min-width:1500px){
-  body{max-width:clamp(1300px,92vw,1680px)}
-  main{padding:0 32px 56px;display:flex;flex-direction:column}
-  .topbar{padding-inline:32px}
-  #page-home.active{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:44px;align-items:start;align-content:center;flex:1;padding-block:20px}
-  .hero{text-align:left}
-  .wordmark{max-width:340px;margin:6px 0 10px}
-  .hero h1{font-size:28px}
-  .hero p{font-size:15px}
-  .overall,.data-tools{max-width:400px;margin-inline:0}
-  .creator-grid{margin:6px auto 0;max-width:min(100%,1180px)}
-  .filters{max-width:640px}
-  .ep-list{margin-top:16px}
+/* ---- Everything above 480px is continuously fluid: one shell formula for
+   every width, clamp() spacing and type, auto-filling grids. Nothing gets
+   smaller as the window grows and nothing jumps at a fixed pixel width. ---- */
+@media(min-width:480px){
+  body{max-width:min(94vw,2300px);border-inline:1px solid #1a2340}
+  main{padding:0 clamp(16px,1.6vw,40px) clamp(28px,3vw,56px)}
+  .topbar{padding-inline:clamp(14px,1.6vw,40px)}
+  .hero{text-align:center}
+  .hero h1{font-size:clamp(22px,1.15vw + 14px,40px)}
+  .hero p{font-size:clamp(14px,0.18vw + 13px,17px)}
+  .wordmark{max-width:clamp(300px,34vw,560px);margin-inline:auto}
+  .overall{max-width:clamp(320px,40vw,660px);margin:clamp(8px,1vw,14px) auto}
+  .data-tools{max-width:clamp(320px,40vw,660px);margin:clamp(8px,1vw,14px) auto 2px}
+  .filters{max-width:clamp(320px,42vw,640px)}
+  .creator-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,1.2vw,22px);margin:clamp(14px,1.4vw,26px) auto;max-width:min(100%,1200px)}
+  .creator strong{font-size:clamp(15px,0.3vw + 14px,19px)}
+  .creator .pct{font-size:clamp(13px,0.15vw + 12px,15px)}
+  .ep-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:clamp(10px,0.85vw,16px);align-items:stretch;margin-top:clamp(12px,1.1vw,20px)}
+  .ep-list>p{grid-column:1/-1;margin:0}
+  .ep{height:100%;min-width:0;padding:clamp(6px,0.55vw,10px);gap:clamp(8px,0.7vw,12px)}
+  .ep img,.fallback-thumb{width:clamp(88px,6vw,108px);height:auto;aspect-ratio:16/9}
+  .ep .t strong{font-size:clamp(14px,0.18vw + 13px,16px)}
+  .ep .t small{font-size:clamp(12px,0.14vw + 11px,14px)}
+  .badge{font-size:clamp(11px,0.1vw + 10px,12px);padding:2px clamp(8px,0.6vw,10px)}
+  .check{padding:clamp(9px,0.7vw,12px) clamp(10px,0.9vw,14px);min-height:clamp(40px,2.6vw,46px);font-size:clamp(13px,0.15vw + 12px,15px)}
+  .player-wrap,#page-watch h3,.watch-controls,.watch-meta,#upNext{max-width:min(100%,clamp(680px,64vw,1320px));margin-inline:auto}
+  .player-wrap{margin-top:clamp(12px,1.2vw,18px)}
+  .watch-controls button{font-size:clamp(14px,0.2vw + 13px,16px);padding:clamp(13px,1vw,16px) 10px}
+  footer{font-size:clamp(12px,0.12vw + 11px,13px)}
 }
 
-@media(min-width:1900px){
-  body{max-width:clamp(1600px,90vw,2000px)}
-  #page-home.active{grid-template-columns:minmax(340px,440px) 1fr;gap:56px}
-  .wordmark{max-width:380px}
-  .hero h1{font-size:32px}
-  .creator-grid{gap:22px}
-  .ep{padding:8px;gap:10px}
-  .ep img,.fallback-thumb{width:96px;height:56px}
-  .ep .badge{display:inline}
+/* ---- Four creator tiles once four of them fit comfortably. ---- */
+@media(min-width:760px){
+  .creator-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
 
-@media(min-width:2400px){
-  body{max-width:min(94vw,2200px)}
-  .creator-grid{gap:26px}
-}
-
-/* ---- Watch page: with room to spare, Prev / Mark watched / Next sit on one
-   row across the player instead of stacking as two half-width buttons. ---- */
+/* ---- Watch page: Prev / Mark watched / Next on one row once there is room. ---- */
 @media(min-width:900px){
   .watch-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
   #toggleWatched{grid-column:auto;grid-row:auto}
 }
 
-/* ---- Wide browse grids: the E-number chip only repeats the meta line, so it
-   drops out once cards are laid out in columns and the title wants the room. ---- */
+/* ---- From ~1200px the cards sit in columns where the E-number chip only
+   repeats the meta line, so it drops out and the title keeps the width. ---- */
 @media(min-width:1200px){
   .ep .badge{display:none}
 }
