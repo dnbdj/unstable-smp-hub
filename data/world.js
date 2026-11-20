@@ -6,7 +6,8 @@
  *
  *   kind: "person" | "faction" | "place"
  *   skin: Minecraft username for the avatar (mc-heads.net), optional
- *   art:  image path relative to the hub root, optional
+ *   art:  image path relative to the hub root, optional — the place photos
+ *         are real screenshots from the Unstable Universe Wiki (art/places/)
  *   glyph: shown on cards that have no art
  */
 (function () {
@@ -88,28 +89,28 @@
 
   const PLACES = [
     {
-      id: "spawn", kind: "place", name: "Capital City", color: "#fbbf24", art: "art/spawn.svg",
+      id: "spawn", kind: "place", name: "Capital City", color: "#fbbf24", art: "art/places/capital.webp",
       tags: ["Spawn", "Active"],
       blurb: "The walled city at spawn, protected by The LAW and run by a mayor. Taken once, rebuilt, still the place everyone passes through."
     },
     {
-      id: "nether", kind: "place", name: "The Nether Kingdom", color: "#f97316", art: "art/nether.svg",
+      id: "nether", kind: "place", name: "The Nether Kingdom", color: "#f97316", art: "art/places/nether.webp",
       tags: ["Nether"],
       blurb: "ClownPierce's kingdom: blackstone, lava and the server's supply of netherite. Getting in was never the hard part."
     },
     {
-      id: "farlands", kind: "place", name: "The Far Lands", color: "#a78bfa", art: "art/farlands.svg",
+      id: "farlands", kind: "place", name: "The Far Lands", color: "#a78bfa", art: "art/places/farlands.webp",
       tags: ["Outer map"],
       blurb: "A civilisation out past the normal map, governed by a Warriors Council — with its own politics and its own wars."
     },
     {
-      id: "theend", kind: "place", name: "The End", color: "#818cf8",
-      glyph: "◈", tags: ["Dimension"],
+      id: "theend", kind: "place", name: "The End", color: "#818cf8", art: "art/places/theend.webp",
+      tags: ["Dimension"],
       blurb: "End cities and the central island, fought over more than once for what the dimension hands out."
     },
     {
-      id: "purgatory", kind: "place", name: "Purgatory", color: "#f43f5e",
-      glyph: "⟁", tags: ["Under the bedrock"],
+      id: "purgatory", kind: "place", name: "Purgatory", color: "#f43f5e", art: "art/places/purgatory.webp",
+      tags: ["Under the bedrock"],
       blurb: "Terrain under the Nether bedrock where the server forces Adventure Mode, so nobody can place or break a single block."
     }
   ];
