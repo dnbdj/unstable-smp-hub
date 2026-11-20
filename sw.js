@@ -2,7 +2,7 @@
    deploy shows up on a normal reload. The cache is only a fallback for
    offline use. Cross-origin (YouTube player, thumbnails, skin CDNs) is
    left entirely to the browser. */
-const CACHE = "smp-hub-v29";
+const CACHE = "smp-hub-v30";
 const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./data/episodes.js", "./manifest.json",
   "./icons/official-logo.png", "./icons/official-wordmark.png",
   "./skins/wemmbu.png", "./skins/flamefrags.png", "./skins/parrotx2.png", "./skins/spokeishere.png",
