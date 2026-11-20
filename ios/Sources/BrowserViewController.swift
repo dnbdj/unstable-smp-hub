@@ -4,7 +4,8 @@ import WebKit
 /// Chromeless viewer: opens the Hub full-screen. No address bar, no search.
 class BrowserViewController: UIViewController, WKNavigationDelegate {
 
-    static let home = "https://site-3f58b39f79cf4d92aa4aa75aa3437a03.freebuff.page/"
+    // Live production site (the old value was the Sites preview hostname).
+    static let home = "https://unstablesmp.freebuff.page/"
 
     private var webView: WKWebView!
 

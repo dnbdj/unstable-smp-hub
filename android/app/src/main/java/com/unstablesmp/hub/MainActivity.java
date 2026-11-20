@@ -2,7 +2,6 @@ package com.unstablesmp.hub;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,19 +12,19 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-/** Minimal WebView shell: loads the hosted Hub (Vercel URL below).
+/** Minimal WebView shell: loads the hosted Hub (Freebuff Sites URL below).
  *  In-app episode taps stay inside; "Watch on YouTube" links open the
  *  YouTube app / browser. Phone back button walks WebView history. */
 public class MainActivity extends Activity {
 
-    // Primary site + fallback. The wrapper follows whatever is live:
-    // Base44 while published, Vercel otherwise. No rebuild needed.
-    private static final String SITE_URL = "https://the-unstable-smp.base44.app/";
-    private static final String FALLBACK_URL = "https://unstable-smp-hub.vercel.app/";
+    // Live site. The fallback is the same host on purpose: it gives a
+    // transient blip one more full load instead of an error page.
+    private static final String SITE_URL = "https://unstablesmp.freebuff.page/";
+    private static final String FALLBACK_URL = "https://unstablesmp.freebuff.page/";
 
     private WebView web;
     private boolean onFallback = false;
-    private int base44Tries = 0;
+    private int retries = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +39,8 @@ public class MainActivity extends Activity {
         web.setWebViewClient(new WebViewClient() {
             private void retryOrFallback() {
                 if (onFallback) return;
-                base44Tries++;
-                if (base44Tries < 2) {
+                retries++;
+                if (retries < 2) {
                     // Transient blip: retry the live site once before giving up.
                     new Handler(Looper.getMainLooper()).postDelayed(() -> {
                         if (!onFallback) web.loadUrl(SITE_URL);
@@ -49,7 +48,7 @@ public class MainActivity extends Activity {
                 } else {
                     onFallback = true;
                     Toast.makeText(MainActivity.this,
-                        "Base44 didn't load — showing backup copy", Toast.LENGTH_LONG).show();
+                        "Hub didn't load, retrying", Toast.LENGTH_LONG).show();
                     web.loadUrl(FALLBACK_URL);
                 }
             }
@@ -58,7 +57,7 @@ public class MainActivity extends Activity {
                 if (!onFallback && failingUrl != null && failingUrl.startsWith(SITE_URL)) retryOrFallback();
             }
             @Override
-            public void onReceivedHttpError(WebView view, android.webkit.WebResourceRequest request, android.webkit.WebResourceResponse errorResponse) {
+            public void onReceivedHttpError(WebView view, WebResourceRequest request, android.webkit.WebResourceResponse errorResponse) {
                 if (!onFallback && request.isForMainFrame()) retryOrFallback();
             }
             @Override
