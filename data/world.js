@@ -5,6 +5,7 @@
  * renders straight from this file, no build step.
  *
  *   kind: "person" | "faction" | "place"
+ *   skin: Minecraft username for the avatar (mc-heads.net), optional
  *   art:  image path relative to the hub root, optional
  *   glyph: shown on cards that have no art
  */
