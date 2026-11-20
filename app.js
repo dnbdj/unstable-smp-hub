@@ -1,7 +1,7 @@
 /* Unstable SMP Hub — views, progress, player. No build step, no accounts, no backend. */
 (function () {
   "use strict";
-  const APP_VER = "v22";
+  const APP_VER = "v23";
   const HUB = window.HUB || {};
   const EPISODES = HUB.EPISODES || [];
   const CREATORS = HUB.CREATORS || [];
