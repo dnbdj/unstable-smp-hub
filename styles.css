@@ -220,6 +220,32 @@ body.sheet-open{overflow:hidden}
 .check:active{transform:scale(.93)}
 .watch-controls button:active{transform:scale(.97)}
 
+/* ---- Home page: four lists (main characters, side characters, places, factions) ---- */
+.list-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:clamp(18px,1.8vw,28px) 0 10px}
+.list-head h2{margin:0;font-size:clamp(17px,0.35vw + 15px,22px);letter-spacing:-.01em}
+.list-head a{color:#38bdf8;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+@media(hover:hover){.list-head a:hover{text-decoration:underline}}
+.list-sub{color:var(--mut);font-size:12px;white-space:nowrap}
+.home-world{display:flex;flex-direction:column}
+.hscroll{display:flex;gap:clamp(10px,0.9vw,14px);overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:2px 2px 8px;margin:0 -2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hscroll::-webkit-scrollbar{display:none}
+.hscroll .wcard{flex:0 0 clamp(152px,42vw,196px);scroll-snap-align:start}
+.hscroll .wmedia{aspect-ratio:4/3}
+.hscroll .wbody{padding:10px 12px 12px;gap:3px}
+.hscroll .wkind{display:none}
+.hscroll .wname{font-size:14px}
+.hscroll .wrole{font-size:12px}
+@media(min-width:480px){
+  .list-head{max-width:min(100%,1200px);margin-inline:auto}
+  .home-world{max-width:min(100%,1200px);margin-inline:auto}
+}
+@media(min-width:760px){
+  .hscroll{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:clamp(12px,1vw,18px);overflow:visible;padding:0;margin:0;scroll-snap-type:none}
+  .hscroll .wcard{flex:none}
+  .hscroll .wmedia{aspect-ratio:16/10}
+  .hscroll .wkind{display:inline-block}
+}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
   .wcard{transform:none !important}
