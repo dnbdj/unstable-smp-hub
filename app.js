@@ -39,6 +39,26 @@
     clear(id) { const m = this.read(); delete m[id]; try { localStorage.setItem(POS_KEY, JSON.stringify(m)); } catch {} }
   };
 
+  /* Older saved progress used longer episode ids; remap those keys to the
+     ids the catalogue uses now, so a device keeps its marks and resume points. */
+  (function remapSavedIds() {
+    const OLD = /^(.+)-([a-z]+)-(\d)-e(\d+)$/;
+    for (const key of [Store.key, POS_KEY]) {
+      let raw;
+      try { raw = JSON.parse(localStorage.getItem(key) || "null"); } catch { continue; }
+      if (!raw || typeof raw !== "object" || Array.isArray(raw)) continue;
+      let changed = false;
+      const next = {};
+      for (const [id, val] of Object.entries(raw)) {
+        const m = id.match(OLD);
+        const nid = m ? `${m[1]}-p${m[3]}-e${m[4]}` : id;
+        if (nid !== id) changed = true;
+        next[nid] = val;
+      }
+      if (changed) { try { localStorage.setItem(key, JSON.stringify(next)); } catch {} }
+    }
+  })();
+
   /* ---- Progress backup: the map lives in this browser only, so let
      people download it and load it back (new phone, cleared data). ---- */
   const EP_IDS = new Set(EPISODES.map((e) => e.id));

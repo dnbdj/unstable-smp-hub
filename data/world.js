@@ -27,8 +27,8 @@
       blurb: "Ran the group that took the server, spawn included, and hunted players to the corners of the map. It only fell when the protagonists stopped fighting each other."
     },
     {
-      id: "clownpierce", kind: "person", name: "ClownPierce", color: "#f97316",
-      role: "King of the Nether Kingdom",
+      id: "clownpierce", kind: "person", name: "ClownPierce",
+      role: "King of the Nether Kingdom", color: "#f97316",
       tags: ["Antagonist"],
       blurb: "Cornered netherite and potions, so everyone else fought with whatever was left. Fond of spectacles: scavenger hunts and social experiments on other players."
     },
