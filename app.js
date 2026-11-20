@@ -588,6 +588,27 @@
     if (it.kind === "clip") mountSheetPlayer(it, pos);
   }
 
+  /* ---- Home page lists: side characters, places and factions reuse the
+     world cards, so tapping one opens the same detail sheet. ---- */
+  const homeEl = document.getElementById("page-home");
+  const HOME_LISTS = [
+    ["homePeople", W.PEOPLE || []],
+    ["homePlaces", W.PLACES || []],
+    ["homeFactions", W.FACTIONS || []]
+  ];
+  function renderHome() {
+    for (const [id, list] of HOME_LISTS) {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = list.map(card).join("");
+    }
+  }
+  if (homeEl) homeEl.addEventListener("click", (e) => {
+    const c = e.target.closest(".wcard");
+    if (!c) return;
+    const it = BASE.find((x) => x.id === c.dataset.id);
+    if (it) openSheet(it);
+  });
+
   /* ---- Events ---- */
   chipsEl.addEventListener("click", (e) => {
     const b = e.target.closest(".wchip");
@@ -601,24 +622,28 @@
   });
   // Pointer-light: the highlight follows the cursor, and on hover-capable
   // devices the card leans a few degrees towards it.
-  gridEl.addEventListener("pointermove", (e) => {
-    const c = e.target.closest(".wcard");
-    if (!c) return;
-    const r = c.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    c.style.setProperty("--mx", (x * 100).toFixed(1) + "%");
-    c.style.setProperty("--my", (y * 100).toFixed(1) + "%");
-    if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
-      c.style.setProperty("--rx", ((0.5 - y) * 6).toFixed(2) + "deg");
-      c.style.setProperty("--ry", ((x - 0.5) * 6).toFixed(2) + "deg");
-    }
-  }, { passive: true });
-  gridEl.addEventListener("pointerleave", () => {
-    for (const c of gridEl.querySelectorAll(".wcard")) {
-      c.style.setProperty("--rx", "0deg");
-      c.style.setProperty("--ry", "0deg");
-    }
-  }, true);
+  function wirePointer(root) {
+    root.addEventListener("pointermove", (e) => {
+      const c = e.target.closest(".wcard");
+      if (!c) return;
+      const r = c.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.style.setProperty("--mx", (x * 100).toFixed(1) + "%");
+      c.style.setProperty("--my", (y * 100).toFixed(1) + "%");
+      if (window.matchMedia("(hover:hover) and (pointer:fine)").matches) {
+        c.style.setProperty("--rx", ((0.5 - y) * 6).toFixed(2) + "deg");
+        c.style.setProperty("--ry", ((x - 0.5) * 6).toFixed(2) + "deg");
+      }
+    }, { passive: true });
+    root.addEventListener("pointerleave", () => {
+      for (const c of root.querySelectorAll(".wcard")) {
+        c.style.setProperty("--rx", "0deg");
+        c.style.setProperty("--ry", "0deg");
+      }
+    }, true);
+  }
+  wirePointer(gridEl);
+  if (homeEl) wirePointer(homeEl);
 
   sheet.addEventListener("click", (e) => { if (e.target.closest("[data-close]")) closeSheet(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
@@ -647,5 +672,6 @@
   });
 
   window.addEventListener("hashchange", () => { if (location.hash.indexOf("#/world") === 0) render(); });
+  renderHome();
   applyFilter("all");
 })();
