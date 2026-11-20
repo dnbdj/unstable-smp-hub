@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-label="District 13: an underground hideout with an iron door and lamps">
+  <defs>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b2436"/><stop offset=".6" stop-color="#141c2c"/><stop offset="1" stop-color="#0a0f18"/>
+    </linearGradient>
+    <radialGradient id="door" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#8fd6ff" stop-opacity=".85"/><stop offset="1" stop-color="#8fd6ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="300" fill="url(#b)"/>
+  <g stroke="#243049" stroke-width="2" fill="none" opacity=".85">
+    <path d="M0 40h480M0 96h480M0 152h480M0 208h480M0 264h480"/>
+    <path d="M40 0v40M40 96v56M40 208v56M120 40v56M120 152v56M120 264v36"/>
+    <path d="M200 0v40M200 96v56M200 208v56M280 40v56M280 152v56M280 264v36"/>
+    <path d="M360 0v40M360 96v56M360 208v56M440 40v56M440 152v56M440 264v36"/>
+  </g>
+  <ellipse cx="240" cy="170" rx="170" ry="90" fill="url(#door)"/>
+  <path d="M186 96h108v148H186z" fill="#0c1220"/>
+  <path d="M196 106h88v138h-88z" fill="#2c3c5c"/>
+  <path d="M204 114h72v122h-72z" fill="#182338"/>
+  <g fill="#3c5480">
+    <rect x="210" y="120" width="60" height="8"/><rect x="210" y="140" width="60" height="8"/>
+    <rect x="210" y="160" width="60" height="8"/><rect x="210" y="180" width="60" height="8"/>
+  </g>
+  <circle cx="276" cy="186" r="5" fill="#9fb6d8"/>
+  <g fill="#ffd489">
+    <rect x="150" y="120" width="10" height="14"/>
+    <rect x="320" y="120" width="10" height="14"/>
+    <rect x="150" y="196" width="10" height="14"/>
+    <rect x="320" y="196" width="10" height="14"/>
+  </g>
+  <g fill="#ffd489" opacity=".18">
+    <circle cx="155" cy="127" r="34"/><circle cx="325" cy="127" r="34"/>
+    <circle cx="155" cy="203" r="34"/><circle cx="325" cy="203" r="34"/>
+  </g>
+  <path d="M0 244h480v56H0z" fill="#0a0f18"/>
+  <g fill="#1b2436">
+    <rect x="44" y="252" width="40" height="26"/><rect x="108" y="258" width="34" height="20"/>
+    <rect x="344" y="252" width="40" height="26"/><rect x="398" y="260" width="34" height="18"/>
+  </g>
+</svg>
