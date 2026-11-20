@@ -105,3 +105,12 @@ main{padding:0 14px 28px;flex:1;width:100%}
   .ep .t small{font-size:12px}
   .check{padding:8px 10px;min-height:40px;font-size:13px}
 }
+
+/* ---- Progress backup controls (home) + toast feedback ---- */
+.data-tools{display:flex;gap:8px;margin:10px 0 2px}
+.tool{flex:1;min-width:0;padding:10px 8px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--mut);font-weight:700;font-size:13px;cursor:pointer;touch-action:manipulation}
+.tool:hover{color:var(--txt);border-color:#31406b}
+.tool:active{transform:scale(.98)}
+@media(min-width:700px){.data-tools{max-width:520px;margin:10px auto 2px}}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,14px);max-width:calc(100% - 32px);background:#1b2440;border:1px solid var(--line);color:var(--txt);border-radius:12px;padding:11px 16px;font-size:13px;text-align:center;box-shadow:0 12px 34px #000a;opacity:0;transition:opacity .25s ease,transform .25s ease;z-index:40;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}

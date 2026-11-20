@@ -1,7 +1,7 @@
 /* Unstable SMP Hub — views, progress, player. No build step, no accounts, no backend. */
 (function () {
   "use strict";
-  const APP_VER = "v20";
+  const APP_VER = "v21";
   const HUB = window.HUB || {};
   const EPISODES = HUB.EPISODES || [];
   const CREATORS = HUB.CREATORS || [];
@@ -22,6 +22,55 @@
     toggle(id) { const m = this.read(); m[id] ? delete m[id] : (m[id] = 1); this.write(m); render(); },
     set(id, v) { const m = this.read(); v ? (m[id] = 1) : delete m[id]; this.write(m); render(); }
   };
+
+  /* ---- Progress backup: the map lives in this browser only, so let
+     people download it and load it back (new phone, cleared data). ---- */
+  const EP_IDS = new Set(EPISODES.map((e) => e.id));
+  function toast(msg) {
+    const t = document.createElement("div");
+    t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add("on"));
+    setTimeout(() => { t.classList.remove("on"); setTimeout(() => t.remove(), 320); }, 2600);
+  }
+  function exportProgress() {
+    const map = Store.read();
+    const ids = Object.keys(map).filter((k) => EP_IDS.has(k) && map[k]);
+    if (!ids.length) return toast("Nothing to back up yet — mark an episode watched first.");
+    const payload = {
+      app: "unstablesmp-hub", version: 1,
+      exportedAt: new Date().toISOString(),
+      progress: ids.reduce((o, k) => (o[k] = 1, o), {})
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "unstablesmp-hub-progress-" + new Date().toISOString().slice(0, 10) + ".json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast("Backed up " + ids.length + " watched episode" + (ids.length === 1 ? "" : "s") + ".");
+  }
+  function importProgress(file) {
+    const r = new FileReader();
+    r.onload = () => {
+      let data;
+      try { data = JSON.parse(String(r.result)); } catch { return toast("That file isn't valid JSON."); }
+      const src = (data && typeof data === "object" && (data.progress || data.episodes)) || data;
+      if (!src || typeof src !== "object") return toast("No progress found in that file.");
+      const map = Store.read();
+      let added = 0, skipped = 0;
+      for (const [k, v] of Object.entries(src)) {
+        if (!EP_IDS.has(k)) { if (v) skipped++; continue; }
+        if (v && !map[k]) { map[k] = 1; added++; }
+      }
+      Store.write(map); render();
+      if (!added) return toast(skipped ? "Those episodes aren't in this catalogue." : "Already up to date — nothing new in that file.");
+      toast("Restored " + added + " watched episode" + (added === 1 ? "" : "s") + (skipped ? " (" + skipped + " unknown skipped)" : "") + ".");
+    };
+    r.onerror = () => toast("Couldn't read that file.");
+    r.readAsText(file);
+  }
 
   function creatorEps(id) { return EPISODES.filter((e) => !id || e.creator === id); }
   function pctFor(id) {
@@ -186,7 +235,17 @@
           width: "100%", height: "100%", videoId: ep.youtubeId,
           playerVars: { rel: 0 },
           events: {
-            onError: () => { if (currentEpId === id) showHandoff(ep, "This video refused in-app playback."); }
+            onError: () => { if (currentEpId === id) showHandoff(ep, "This video refused in-app playback."); },
+            // state 0 = ENDED: mark it watched and roll into the next episode.
+            onStateChange: (ev) => {
+              if (ev.data !== 0 || currentEpId !== id) return;
+              Store.set(id, true);
+              const list = orderedList();
+              const next = list[list.findIndex((e) => e.id === id) + 1];
+              if (!next) return toast("That's the last episode in this list.");
+              toast("Next up: " + next.title);
+              setTimeout(() => { if (currentEpId === id) location.replace("#/w/" + next.id); }, 1200);
+            }
           }
         });
       });
@@ -247,6 +306,13 @@
   window.addEventListener("hashchange", route);
   $("#prevBtn").onclick = () => step(-1); $("#nextBtn").onclick = () => step(1);
   $("#toggleWatched").onclick = () => { if (currentEpId) Store.set(currentEpId, !Store.isWatched(currentEpId)); };
+  $("#exportBtn").onclick = exportProgress;
+  $("#importBtn").onclick = () => $("#importFile").click();
+  $("#importFile").onchange = (e) => {
+    const f = e.target.files && e.target.files[0];
+    e.target.value = "";
+    if (f) importProgress(f);
+  };
   // Coming back from the YouTube app with the episode still unwatched?
   // Pulse the Mark-watched button as a reminder.
   document.addEventListener("visibilitychange", () => {
