@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-label="The Far Lands: floating islands under a purple starfield">
+  <defs>
+    <linearGradient id="f" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a1030"/><stop offset=".5" stop-color="#3b2560"/><stop offset="1" stop-color="#6b3f7a"/>
+    </linearGradient>
+    <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2f52"/><stop offset="1" stop-color="#1a1428"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="300" fill="url(#f)"/>
+  <g fill="#ffffff">
+    <circle cx="42" cy="34" r="1.6" opacity=".9"/><circle cx="104" cy="18" r="1.2" opacity=".7"/>
+    <circle cx="168" cy="46" r="1.4" opacity=".8"/><circle cx="226" cy="22" r="1.1" opacity=".6"/>
+    <circle cx="292" cy="40" r="1.6" opacity=".85"/><circle cx="352" cy="20" r="1.2" opacity=".7"/>
+    <circle cx="418" cy="52" r="1.5" opacity=".8"/><circle cx="462" cy="28" r="1.1" opacity=".6"/>
+    <circle cx="72" cy="86" r="1.2" opacity=".55"/><circle cx="398" cy="96" r="1.3" opacity=".55"/>
+  </g>
+  <circle cx="392" cy="70" r="26" fill="#c9b6ff" opacity=".22"/>
+  <circle cx="392" cy="70" r="18" fill="#e7dcff" opacity=".55"/>
+  <g fill="url(#rock)">
+    <path d="M26 168h132l-16 22-34 12-40-10z"/>
+    <path d="M180 126h150l-18 26-40 14-48-12z"/>
+    <path d="M320 176h134l-16 20-36 12-44-10z"/>
+  </g>
+  <g fill="#4d3d6b">
+    <path d="M40 168h104v-10H40z"/><path d="M192 126h118v-8H192z"/><path d="M332 176h110v-9H332z"/>
+  </g>
+  <g fill="#2b2140">
+    <path d="M60 158h22v10H60zM96 152h16v16H96zM206 118h20v8h-20zM246 112h30v14h-30zM352 166h24v10h-24zM392 160h18v16h-18z"/>
+  </g>
+  <path d="M168 132v-14h22v14zM212 132v-22h14v22zM410 180v-16h18v16z" fill="#2b2140"/>
+  <g fill="#8f7ab8" opacity=".5">
+    <rect x="58" y="196" width="70" height="3"/><rect x="214" y="176" width="80" height="3"/><rect x="352" y="202" width="66" height="3"/>
+  </g>
+  <path d="M0 236h480v64H0z" fill="#120c22"/>
+  <path d="M0 236h480v4H0z" fill="#6b3f7a" opacity=".6"/>
+</svg>
