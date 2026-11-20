@@ -1,7 +1,7 @@
 /* Unstable SMP Hub — views, progress, player. No build step, no accounts, no backend. */
 (function () {
   "use strict";
-  const APP_VER = "v24";
+  const APP_VER = "v25";
   const HUB = window.HUB || {};
   const EPISODES = HUB.EPISODES || [];
   const CREATORS = HUB.CREATORS || [];
@@ -38,7 +38,6 @@
     },
     clear(id) { const m = this.read(); delete m[id]; try { localStorage.setItem(POS_KEY, JSON.stringify(m)); } catch {} }
   };
-  const mmss = (s) => { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
 
   /* ---- Progress backup: the map lives in this browser only, so let
      people download it and load it back (new phone, cleared data). ---- */
@@ -168,7 +167,7 @@
         ${th ? `<img loading="lazy" src="${th}" alt="">` : `<div class="fallback-thumb" style="background:#1e293b;color:#94a3b8">E${num}</div>`}
         ${pctPos ? `<i class="epbar" aria-hidden="true"><b style="width:${pctPos}%"></b></i>` : ""}
       </span>
-      <div class="t"><strong>${ep.title}</strong><small>${ep.creatorName} · E${num} · ${ep.duration}${pos ? ` · <em class="resume">▶ ${mmss(pos.t)}</em>` : ""}</small></div>
+      <div class="t"><strong>${ep.title}</strong><small>${ep.creatorName} · E${num} · ${ep.duration}${pos ? ` · <em class="resume">▶ ${pctPos}%</em>` : ""}</small></div>
       <span class="badge">${done ? "✓ watched" : "E" + num}</span>
       <button class="check">${done ? "Uncheck" : "✓"}</button>`;
     d.querySelector(".check").onclick = (ev) => { ev.stopPropagation(); Store.toggle(ep.id); };
@@ -275,7 +274,7 @@
           width: "100%", height: "100%", videoId: ep.youtubeId,
           playerVars: resume ? { rel: 0, start: resume.t } : { rel: 0 },
           events: {
-            onReady: () => { trackPos(id); if (resume) toast("Resuming at " + mmss(resume.t) + "."); },
+            onReady: () => { trackPos(id); if (resume) toast("Resuming at " + Math.min(99, Math.round((resume.t / resume.d) * 100)) + "%."); },
             onError: () => { if (currentEpId === id) showHandoff(ep, "This video refused in-app playback."); },
             // state 0 = ENDED: clear the resume point, mark it watched, roll on.
             onStateChange: (ev) => {
@@ -426,7 +425,6 @@
   const writeJSON = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
   const clips = () => readJSON(CLIP_KEY, []);
   const posOf = (id) => { const p = readJSON(POS_KEY, {})[id]; return p && p.d > 0 ? p : null; };
-  const mmss = (s) => { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
   const note = (m) => { if (window.hubToast) window.hubToast(m); };
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const thumb = (yt) => "https://i.ytimg.com/vi/" + yt + "/hqdefault.jpg";
@@ -464,7 +462,7 @@
     const pos = it.kind === "clip" ? posOf(it.id) : null;
     const pct = pos ? Math.min(99, Math.round((pos.t / pos.d) * 100)) : 0;
     const sub = it.kind === "clip"
-      ? (pct ? "Resume at " + mmss(pos.t) : "Imported clip")
+      ? (pct ? pct + "% watched" : "Imported clip")
       : (it.role || (it.tags && it.tags[0]) || KIND_LABEL[it.kind]);
     return '<button class="wcard" data-id="' + esc(it.id) + '" data-kind="' + it.kind +
       '" style="--c:' + esc(it.color || "#8b5cf6") + '">' + media(it) +
@@ -565,7 +563,7 @@
     if (it.kind === "clip") {
       sheetBody.innerHTML = head +
         '<div class="sheet-player" id="sheetPlayer"><p class="empty">Loading player…</p></div>' +
-        '<p class="sheet-line">' + (pos ? 'You stopped at ' + mmss(pos.t) + ' — it carries on from there.' : 'Play it here and this page remembers where you stopped.') + '</p>' +
+        '<p class="sheet-line">' + (pos ? "You're " + Math.min(99, Math.round((pos.t / pos.d) * 100)) + '% in — it carries on from there.' : 'Play it here and this page remembers where you stopped.') + '</p>' +
         '<div class="sheet-actions"><a class="btn-ghost" href="https://www.youtube.com/watch?v=' + it.yt + '" target="_blank" rel="noopener">Open on YouTube</a>' +
         '<button class="btn-danger" id="clipRemove" type="button">Remove clip</button></div>';
       document.getElementById("clipRemove").onclick = function () {
