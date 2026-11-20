@@ -28,6 +28,11 @@
       <h1>Track your Unstable SMP journey</h1>
       <p>Pick a creator. Watch episodes. Progress stays on this device.</p>
       <div class="overall"><div class="bar"><div id="overallBar" class="fill"></div></div><span id="overallLabel">0% watched</span></div>
+      <div class="data-tools">
+        <button id="exportBtn" class="tool" type="button" title="Download your watched list as a JSON file">↓ Back up progress</button>
+        <button id="importBtn" class="tool" type="button" title="Load a previously backed-up JSON file">↑ Restore</button>
+        <input id="importFile" type="file" accept="application/json,.json" hidden>
+      </div>
     </div>
     <div id="creatorGrid" class="creator-grid"></div>
   </section>
