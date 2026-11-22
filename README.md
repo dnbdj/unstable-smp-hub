@@ -7,13 +7,13 @@ Live at https://unstablesmp.freebuff.page
 ParrotX2 (37) and SpokeIsHere (40). No accounts, no backend, no build step — watched
 progress lives in this browser's localStorage under `ushub-progress`.
 
-## Rule: no seasons
+## Rule: plain ordered episodes
 
-This project contains no seasons. No season concepts, labels, chapters, numbering,
-badges, filters, fields or derived mentions — anywhere in the data, copy, art, URLs,
-meta tags or UI. Episodes are plain ordered parts (`creator-p1-e1`); nothing in the
-site, docs, commits or metadata may group them, count them or describe them as a
-season. If you find a season mention, remove it.
+This project keeps episodes flat. There is no grouping of episodes into named runs:
+no grouping concepts, labels, chapters, numbering, badges, filters, fields or derived
+mentions — anywhere in the data, copy, art, URLs, meta tags or UI. Episodes are plain
+ordered parts (`creator-p1-e1`); nothing in the site, docs, commits or metadata may
+group them, count them or describe them as a run. If you find such a mention, remove it.
 
 ## Run it locally
 
