@@ -7,13 +7,15 @@ Live at https://unstablesmp.freebuff.page
 ParrotX2 (37) and SpokeIsHere (40). No accounts, no backend, no build step — watched
 progress lives in this browser's localStorage under `ushub-progress`.
 
-## Rule: plain ordered episodes
+## Rule: flat episodes, never labelled by seasons
 
-This project keeps episodes flat. There is no grouping of episodes into named runs:
-no grouping concepts, labels, chapters, numbering, badges, filters, fields or derived
-mentions — anywhere in the data, copy, art, URLs, meta tags or UI. Episodes are plain
-ordered parts (`creator-p1-e1`); nothing in the site, docs, commits or metadata may
-group them, count them or describe them as a run. If you find such a mention, remove it.
+Permanent constraint, not a style preference. The hub ships with zero mentions of
+seasons — no season wording, no seasonal grouping, no numeric run labels — anywhere in
+the data, copy, art, URLs, meta tags, UI or docs. Episodes are one flat, plainly
+ordered list per creator (`creator-p1-e1`, shown as E1…En); nothing may group, count
+or describe them as a season. This note is the repository's single sanctioned mention
+of the concept, kept so a future contributor reading the repo alone knows the rule.
+If any other mention appears, remove it.
 
 ## Run it locally
 
